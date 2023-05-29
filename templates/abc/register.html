@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Registration{% endblock title %}
+
+{% block register %}
+{% comment %} <div class="register">
+    <div class="container">
+        <form>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3 form-group col-md-12">
+                <label for="zimmedari">Your Zimmedari</label>
+                <input type="text" class="form-control" id="zimmedari" placeholder="District Naik A'amal">
+              </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </form>
+    </div>
+</div> {% endcomment %}
+
+<div class="container">
+  <div class="row my-3">
+   <div class="col-sm-6 offset-sm-3">
+    <h3>Customer Registration</h3>
+    <hr>
+ 
+    <form action="" method="post" novalidate class="shadow p-5">
+    {% if messages %}
+     {% for message in messages %}
+       <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5" {% endif%} >{{message}} </p>
+     {% endfor %}  
+    {% endif %}
+     {% csrf_token %}
+       {% for fm in form %}
+        <div class="form-group mb-3">
+          {{fm.label_tag}}  {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+        </div>
+       {% endfor %}
+        <input type="submit" value="submit" class="btn btn-primary">
+        <br>
+        <div class="text-center text-primary fw-bold"><small>Existing User?<a href="{% url 'login' %}" class="text-danger">Login Now</a></small></div>
+        {% if form.non_fiel_errors %}
+          {% for errors in form.non_fiel_errors %}
+          <p cass="alert alert-danger my-3">{{error}}
+             {% endfor %}
+          {% endif %}
+    </form>
+   </div>
+  </div>
+ </div>
+ 
+{% endblock register %}
+
